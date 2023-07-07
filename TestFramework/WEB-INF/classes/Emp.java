@@ -49,6 +49,15 @@ public class Emp {
     public ModelView findAll(){
         ModelView mv = new ModelView();
         mv.setView("/emp-list.jsp");
+            
+        Vector<Emp> emp = new Vector<>();
+        emp.add(new Emp("Rakoto"));    
+        emp.add(new Emp("Rabe"));
+        emp.add(new Emp("Rasoa"));
+
+        mv.addItem("list", emp);        
+        mv.addItem("liste", new Emp("Rasoa"));
+        
         return mv;
     }
     public Emp() {

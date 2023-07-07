@@ -74,6 +74,15 @@ public class FrontServlet extends HttpServlet {
 
         ModelView modelView = (ModelView) clazz.getMethod(mapping.getMethod()).invoke(object);
 
+        addData(request, modelView);
+        HashMap<String, Object> data = modelView.getData();
+
+
+        // Mettre à jour les données dans la requête
+        for (String key : data.keySet()) {
+            request.setAttribute(key, data.get(key));
+        }
+
         RequestDispatcher dispatcher = request.getRequestDispatcher(modelView.getView());
         dispatcher.forward(request, response);
     }

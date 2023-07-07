@@ -1,43 +1,56 @@
-package etu1785.framework;
-import etu1785.framework.*;
-import etu1785.framework.servlet.*;
-import java.util.*;
+package model;
+import etu1785.framework.ModelView;
+import etu1785.framework.UrlMapping;
+import java.util.HashMap;
+import java.util.Vector;
+
 public class Emp {
+    int id;
+    String name;
+    String firstname;
     
-    @UrlMapping(url = "/emp/list")
-    public void getList() {
-        System.out.println("mety");
+    public int getId() {
+        return this.id;
     }
-    
-    @UrlMapping(url = "/emp/details")
-    public void getDetails() {
-        System.out.println("mety");
-    }
-    
-    @UrlMapping(url = "/emp/create")
-    public void createEmp() {
-        System.out.println("mety");
-    }
-    
-     public static void main(String args[]){
-        FrontServlet frontServlet = new FrontServlet();
-        try{
-            frontServlet.init();
-        }
-        catch(Exception e){
 
-        }
-        
+    public void setId(int id) {
+        this.id = id;
+    }
 
-        HashMap<String, Mapping> mappingUrls = frontServlet.getMappingUrls();
-        for (Map.Entry<String, Mapping> entry : mappingUrls.entrySet()) {
-            String url = entry.getKey();
-            Mapping mapping = entry.getValue();
-            System.out.println("URL: " + url);
-            System.out.println("classe: " + mapping.getClassName());
-            System.out.println("Method: " + mapping.getMethod());
-            System.out.println();
-        }
+    public String getFirstname() {
+        return firstname;
+    }
+
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
     
+
+    @UrlMapping(url = "get-name.do")
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Emp(int id, String name, String firstname) {
+        this.id = id;
+        this.name = name;
+        this.firstname = firstname;
+    }
+
+    public Emp(String name) {
+        this.name = name;
+    }
+    
+    @UrlMapping(url="emp-all.do")
+    public ModelView findAll(){
+        ModelView mv = new ModelView();
+        mv.setView("/emp-list.jsp");
+        return mv;
+    }
+    public Emp() {
     }
 }

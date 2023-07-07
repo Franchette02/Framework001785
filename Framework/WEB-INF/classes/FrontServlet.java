@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import etu1785.framework.ModelView;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -13,7 +14,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import etu1785.framework.Mapping;
-// import etu1785.framework.ModelView;
 import etu1785.framework.UrlMapping;
 import etu1785.framework.Utilitaire;
 import java.lang.reflect.Field;
@@ -66,11 +66,23 @@ public class FrontServlet extends HttpServlet {
         Mapping mapping = mappingUrls.get(mappedUrl);
 
         if (mapping == null) {
-            throw new Exception("URL Not Found");
+            throw new Exception("Not Found");
         }
 
         Class<?> clazz = Class.forName(mapping.getClassName());
         Object object = clazz.getDeclaredConstructor().newInstance();
+
+        ModelView modelView = (ModelView) clazz.getMethod(mapping.getMethod()).invoke(object);
+
+        RequestDispatcher dispatcher = request.getRequestDispatcher(modelView.getView());
+        dispatcher.forward(request, response);
+    }
+
+    public void addData(HttpServletRequest req,ModelView mv){
+        for (Map.Entry<String,Object> obj: mv.getData().entrySet()) {
+            req.setAttribute(obj.getKey(), obj.getValue());
+        }
+        
     }
 
 

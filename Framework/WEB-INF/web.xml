@@ -11,7 +11,7 @@
     </description>
     <servlet>
         <servlet-name>FrontServlet</servlet-name>
-        <servlet-class>etu1797.framework.servlet.FrontServlet</servlet-class>
+        <servlet-class>etu1785.framework.servlet.FrontServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
